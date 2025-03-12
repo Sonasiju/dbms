@@ -1,0 +1,73 @@
+
+{% extends 'base.html'%}
+
+{% block title%}
+EDITS
+{% endblock title %}
+
+{% block body %}
+<!-- Full height container to center the form -->
+<div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="col-md-5">
+        <h4 class="text-center bg-danger text-white">Update Your Slot</h4>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/edit/{{ posts.pid }}" method="post" class="jumbotron">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="email" value="{{ current_user.email }}" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" name="name" value="{{ posts.name }}" placeholder="Full Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" id="gender" name="gender" required>
+                            <option value="Male" {% if posts.gender == 'Male' %} selected {% endif %}>Male</option>
+                            <option value="Female" {% if posts.gender == 'Female' %} selected {% endif %}>Female</option>
+                            <option value="Others" {% if posts.gender == 'Others' %} selected {% endif %}>Others</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" id="slot" name="slot" required>
+                            <option value="morning" {% if posts.slot == 'morning' %} selected {% endif %}>Morning</option>
+                            <option value="evening" {% if posts.slot == 'evening' %} selected {% endif %}>Evening</option>
+                            <option value="night" {% if posts.slot == 'night' %} selected {% endif %}>Night</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="time" class="form-control" value="{{ posts.time }}" name="time" placeholder="Time" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="date" class="form-control" value="{{ posts.date }}" name="date" placeholder="Date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" value="{{ posts.disease }}" id="disease" name="disease" placeholder="Disease" required>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" id="dept" name="dept" required>
+                            <option selected>Select Doctor Department</option>
+                            {% for d in doct %}
+                                <option value="{{ d.dept }}" {% if posts.dept == d.dept %} selected {% endif %}>{{ d.dept }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" class="form-control" value="{{ posts.number }}" id="number" name="number" placeholder="Phone Number" required>
+                    </div>
+
+                    <button type="submit" id="btn" class="btn btn-warning btn-sm btn-block">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
